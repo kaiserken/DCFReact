@@ -1,0 +1,18 @@
+@import url(http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,400,300,600,700);
+
+body {
+  background-color:#F7F7F7;
+  font-family: 'Open Sans', sans-serif;
+}
+
+#title{
+  font-family: 'Open Sans', sans-serif;
+  font-size: 25px;
+  color: black;
+  text-align: center;
+  background-color: #A9A9A9;
+}
+.cashflows{
+  font-family: 'Open Sans', sans-serif;
+
+}

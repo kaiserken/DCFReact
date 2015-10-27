@@ -4,7 +4,6 @@ var React = require('react'),
 var Dcfmodel  = React.createClass({
 
   getInitialState: function(){
-
     return {
       cashFlowYear1: "",
       cashFlowYear2: "",
@@ -15,14 +14,12 @@ var Dcfmodel  = React.createClass({
       discountRate:"",
       longTermGrowthRate:""
     };
-
   },
-
-
+  // adds commas to the input number
   numberFormatting: function(event){
       return (new Intl.NumberFormat({ style: 'currency', currency: 'USD' }).format(event));
   },
-
+  // changes string back to a number
   stringNumber: function(event){
       return ((event).replace(/[, ]+/g, "").trim());
   },
@@ -32,38 +29,25 @@ var Dcfmodel  = React.createClass({
     console.log(event.target.value);
     var cashflow = this.numberFormatting(event.target.value);
     event.target.value = cashflow;
-    //debugger;
-    // the above does not actually change the render and makes input values a string
     var id = event.target.id;
     var data = {};
     data[id] = cashflow;
     this.setState(data)
-    // hard keyed right now
-    // this.setState({
-    //   discountRate: 1.2,
-    //   longTermGrowthRate:1.04
-    // })
   },
 
-  discountedValue: function(cf1,cf2,cf3,cf4,cf5,rate, grwthrate){
+
+  discountedValue: function(array,rate, grwthrate){
     grwthrate = 1 +grwthrate/100;
     rate = 1 + rate/100 ;
-    console.log("grate", grwthrate);
-    console.log('rate', rate);
-    cf1 = this.stringNumber(cf1);
-    cf2 = this.stringNumber(cf2);
-    cf3 = this.stringNumber(cf3);
-    cf4= this.stringNumber(cf4);
-    cf5 = this.stringNumber(cf5);
+    var cf = array.map(this.stringNumber);
 
-    //console.log((cf5*grwthrate/(rate-grwthrate))/(Math.pow(rate,5)))
-    return Math.round((cf1/rate+ cf2/(Math.pow(rate,2))+ cf3/(Math.pow(rate,3))+cf4/(Math.pow(rate,4))+cf5/(Math.pow(rate,5))+
-    (cf5*grwthrate/(rate-grwthrate))/(Math.pow(rate,5))));
+    return Math.round((cf[0]/rate+ cf[1]/(Math.pow(rate,2))+ cf[2]/(Math.pow(rate,3))+cf[3]/(Math.pow(rate,4))+cf[4]/(Math.pow(rate,5))+
+    (cf[4]*grwthrate/(rate-grwthrate))/(Math.pow(rate,5))));
   },
 
   computeValue: function(event){
     event.preventDefault();
-    var companysValue  = this.discountedValue(this.state.cashFlowYear1, this.state.cashFlowYear2, this.state.cashFlowYear3, this.state.cashFlowYear4, this.state.cashFlowYear5, this.state.discountRate, this.state.longTermGrowthRate);
+    var companysValue  = this.discountedValue([this.state.cashFlowYear1, this.state.cashFlowYear2, this.state.cashFlowYear3, this.state.cashFlowYear4, this.state.cashFlowYear5], this.state.discountRate, this.state.longTermGrowthRate);
     companysValue = this.numberFormatting(companysValue);
     this.setState({companyValue : companysValue})
   },
@@ -85,6 +69,7 @@ var Dcfmodel  = React.createClass({
         <br/>
         <p>Enter the Discount Rate </p>
         <input id  = 'discountRate' type  = "text"  defaultValue = "" placeholder = "Discount Rate" onChange = {this.changeCashFlow}/>
+        <br/>
         <br/>
         <p>Enter the Long Term Growth Rate of Cash Flows after year 5 </p>
         <input id = "longTermGrowthRate" type  = "text"  defaultValue = "" placeholder = "Growth Rate" onChange = {this.changeCashFlow}/>

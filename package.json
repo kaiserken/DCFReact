@@ -13,6 +13,7 @@
     "babel": "^5.8.23",
     "babelify": "^6.2.0",
     "browserify": "^11.2.0",
+    "cheerio": "^0.19.0",
     "express": "^4.13.3",
     "gulp": "^3.9.0",
     "gulp-nodemon": "^2.0.4",
@@ -24,6 +25,7 @@
     "lodash.assign": "^3.2.0",
     "react": "^0.14.0",
     "reactify": "^1.1.1",
+    "request": "^2.65.0",
     "vinyl-buffer": "^1.0.0",
     "vinyl-source-stream": "^1.1.0",
     "watchify": "^3.4.0"

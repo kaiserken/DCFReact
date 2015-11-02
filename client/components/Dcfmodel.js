@@ -1,5 +1,6 @@
 var React = require('react'),
     $ = require('jQuery');
+    Publiccomps = require('./Publiccomps');
 
 var Dcfmodel  = React.createClass({
 
@@ -26,7 +27,7 @@ var Dcfmodel  = React.createClass({
 
   changeCashFlow: function(event){
     event.target.value = this.stringNumber(event.target.value);
-    console.log(event.target.value);
+    //console.log(event.target.value);
     var cashflow = this.numberFormatting(event.target.value);
     event.target.value = cashflow;
     var id = event.target.id;
@@ -37,10 +38,9 @@ var Dcfmodel  = React.createClass({
 
 
   discountedValue: function(array,rate, grwthrate){
-    grwthrate = 1 +grwthrate/100;
+    grwthrate = 1 + grwthrate/100;
     rate = 1 + rate/100 ;
     var cf = array.map(this.stringNumber);
-
     return Math.round((cf[0]/rate+ cf[1]/(Math.pow(rate,2))+ cf[2]/(Math.pow(rate,3))+cf[3]/(Math.pow(rate,4))+cf[4]/(Math.pow(rate,5))+
     (cf[4]*grwthrate/(rate-grwthrate))/(Math.pow(rate,5))));
   },
@@ -67,17 +67,21 @@ var Dcfmodel  = React.createClass({
         <input id = 'cashFlowYear5' type  = "text"  defaultValue = "" placeholder = "Year 5 cashflow" onChange = {this.changeCashFlow}/>
         <br/>
         <br/>
-        <p>Enter the Discount Rate </p>
+        <p>Enter the Discount Rate   {this.state.discountRate}%</p>
         <input id  = 'discountRate' type  = "text"  defaultValue = "" placeholder = "Discount Rate" onChange = {this.changeCashFlow}/>
         <br/>
         <br/>
-        <p>Enter the Long Term Growth Rate of Cash Flows after year 5 </p>
+        <p>Enter the Long Term Growth Rate of Cash Flows after year five   {this.state.longTermGrowthRate}%</p>
         <input id = "longTermGrowthRate" type  = "text"  defaultValue = "" placeholder = "Growth Rate" onChange = {this.changeCashFlow}/>
         <br/>
         <br/>
         <button>Calculate Value</button>
-      </form>
-      <h4 className = "cashflows">Company Value ${this.state.companyValue}</h4>
+
+        </form>
+        <h4 className = "cashflows">Company Value ${this.state.companyValue}</h4>
+        <br/>
+        <br/>
+        <Publiccomps/>
       </div>
 
     );

@@ -1,23 +1,15 @@
 var cheerio = require('cheerio');
 var request = require('request');
-var React = require('react');
-var Publiccomps = require('./../client/components/Publiccomps');
 
-var url  = "http://finance.yahoo.com/q/ks?s=invn";
-
+var url  = "http://finance.yahoo.com/q/ks?s=";
 
 var scrapeController = {
-  postData: function(req, res, next){
-
-
-    console.log("postrequestbody", req.body);
-  },
-
   getData: function(req, res, next) {
-
+    var newUrl  = url+req.params.symbol;
     res.header("Access-Control-Allow-Origin","*");
-
-    request(url, function(error, response, html) {
+    console.log(req.params.symbol)
+    console.log('url', url);
+    request(newUrl, function(error, response, html) {
       if(error){
           return console.error(error);
       }

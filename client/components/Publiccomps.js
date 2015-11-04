@@ -22,7 +22,7 @@ var Publiccomps = React.createClass({
   },
 
   numberFormatting: function(event){
-      return (new Intl.NumberFormat({ style: 'currency', currency: 'USD' }).format(event));
+      return (new Intl.NumberFormat({ style: 'currency',currency: 'USD' }).format(event));
   },
 
   stringNumber: function(event){
@@ -39,8 +39,8 @@ var Publiccomps = React.createClass({
     this.setState(data)
   },
   computeCompanyValue: function(cr, ce, evr, eve){
-    var companyValueRevenue = this.stringNumber(cr)*this.stringNumber(evr);
-    var companyValueEbitda = this.stringNumber(ce)*this.stringNumber(eve);
+    var companyValueRevenue = (this.stringNumber(cr)*this.stringNumber(evr))-(.20*(this.stringNumber(cr)*this.stringNumber(evr)));
+    var companyValueEbitda = (this.stringNumber(ce)*this.stringNumber(eve))-(.20*(this.stringNumber(ce)*this.stringNumber(eve)));
     this.setState({
       companyValueRevenue :this.numberFormatting(companyValueRevenue),
       companyValueEbitda: this.numberFormatting(companyValueEbitda)
@@ -66,6 +66,7 @@ var Publiccomps = React.createClass({
       url: "http://localhost:3000/yahoostockquery/"+this.state.ticker,
       contentType: 'application/json',
       success: function(results){
+        console.log(results)
         this.setState({
           marketCap:results[0].numbers,
           enterpriseValue: results[1].numbers,
@@ -85,43 +86,69 @@ var Publiccomps = React.createClass({
     return (
       <div>
         <h3 className = "cashflows"> Public Comps</h3>
-        <form  className = "cashflows" onSubmit ={this.getComps} > In the Boxes below - Input the ticker symbol of a comparable company and your company's 12-month trailing Revenue and EBITDA
-        <br/>
-        <br/>
-        <input  id = 'ticker' type  = "text"  defaultValue = "" placeholder = "Ticker Symbol" onChange = {this.changeComps}/>
-        <br/>
-        <br/>
-        <input  id = 'companyRevenue' type  = "text"  defaultValue = "" placeholder = "Your Revenue" onChange = {this.changeCompanyInfo}/>
-        <br/>
-        <br/>
-        <input  id = 'companyEbitda' type  = "text"  defaultValue = "" placeholder = "Your EBITDA" onChange = {this.changeCompanyInfo}/>
-        <br/>
-        <br/>
-        <button>Retrieve Comps</button>
-        <br/>
-        <br/>
-
-        <p>Company Ticker Symbol ------------- {this.state.ticker}</p>
-        <p>Market Capitalization ------------- {this.state.marketCap}</p>
-        <p>Enterprise Value ------------------ {this.state.enterpriseValue}</p>
-        <p>Revenue --------------------------- {this.state.revenue}</p>
-        <p>EBITDA ---------------------------- {this.state.ebitda}</p>
-        <p>Enterprise Value / Revenue -------- {this.state.evRevenue}</p>
-        <p>Enterprise Value / EBITDA --------- {this.state.evEbitda}</p>
-
-        <h5>Your company's value based on multiple of Revenue ${this.state.companyValueRevenue}</h5>
-        <h5>Your company's value based on multiple of EBITDA ${this.state.companyValueEbitda}</h5>
-
+        <form  className = "cashflows" onSubmit ={this.getComps} > In the Boxes below - Input the ticker symbol of a comparable company and your company's 12-month trailing Revenue and EBITDA. A 20% liquidity discount is applied because you are private company.
+          <br/>
+          <br/>
+          <input  id = 'ticker' type  = "text"  defaultValue = "" placeholder = "Ticker Symbol" onChange = {this.changeComps}/>
+          <br/>
+          <br/>
+          <input  id = 'companyRevenue' type  = "text"  defaultValue = "" placeholder = "Your Revenue" onChange = {this.changeCompanyInfo}/>
+          <br/>
+          <br/>
+          <input  id = 'companyEbitda' type  = "text"  defaultValue = "" placeholder = "Your EBITDA" onChange = {this.changeCompanyInfo}/>
+          <br/>
+          <br/>
+          <button>Retrieve Comps</button>
+          <br/>
+          <br/>
         </form>
-
+        <h5 className = "cashflows">Your Company's value based on multiple of Revenue is ${this.state.companyValueRevenue}</h5>
+        <h5 className= "cashflows">Your Company's value based on multiple of EBITDA is ${this.state.companyValueEbitda}</h5>
+        <br/>
+        <br/>
+        <table className = "cashflows">
+        <thead>
+          <tr>
+            <th>Comparable Company Numbers</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Company Ticker Symbol</td>
+            <td>{this.state.ticker}</td>
+          </tr>
+          <tr>
+            <td>Market Capitalization</td>
+            <td>{this.state.marketCap}</td>
+          </tr>
+          <tr>
+            <td>Enterprise Value</td>
+            <td>{this.state.enterpriseValue}</td>
+          </tr>
+          <tr>
+            <td>Revenue</td>
+            <td>{this.state.revenue}</td>
+          </tr>
+          <tr>
+            <td>EBITDA</td>
+            <td>{this.state.ebitda}</td>
+          </tr>
+          <tr>
+            <td>Enterprise Value / Revenue</td>
+            <td>{this.state.evRevenue}x</td>
+          </tr>
+          <tr>
+            <td>Enterprise Value / EBITDA</td>
+            <td>{this.state.evEbitda}x</td>
+          </tr>
+          </tbody>
+        </table>
         <br/>
         <br/>
       </div>
 
     );
   }
-
-
 
 })
 

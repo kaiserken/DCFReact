@@ -7,8 +7,6 @@ var scrapeController = {
   getData: function(req, res, next) {
     var newUrl  = url+req.params.symbol;
     res.header("Access-Control-Allow-Origin","*");
-    console.log(req.params.symbol)
-    console.log('url', url);
     request(newUrl, function(error, response, html) {
       if(error){
           return console.error(error);

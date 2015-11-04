@@ -18,7 +18,7 @@ var Dcfmodel  = React.createClass({
   },
   // adds commas to the input number
   numberFormatting: function(event){
-      return (new Intl.NumberFormat({ style: 'currency', currency: 'USD' }).format(event));
+      return (new Intl.NumberFormat({ style: 'currency',currency: 'USD' }).format(event));
   },
   // changes string back to a number
   stringNumber: function(event){

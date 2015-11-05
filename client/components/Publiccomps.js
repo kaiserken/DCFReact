@@ -17,33 +17,27 @@ var Publiccomps = React.createClass({
       ebitda: "",
       evRevenue: "",
       evEbitda: "",
-      url: "http://finance.yahoo.com/q/ks?s=INVN"
+      url: ""
     };
   },
 
-  numberFormatting: function(event){
-      return (new Intl.NumberFormat({ style: 'currency',currency: 'USD' }).format(event));
-  },
-
-  stringNumber: function(event){
-      return ((event).replace(/[, ]+/g, "").trim());
-  },
-
   changeCompanyInfo: function(event){
-    event.target.value = this.stringNumber(event.target.value);
-    var companyInfo = this.numberFormatting(event.target.value);
+    console.log(this.props)
+    event.target.value = this.props.stringNumber(event.target.value);
+    var companyInfo = this.props.numberFormatting(event.target.value);
     event.target.value = companyInfo;
     var id = event.target.id;
     var data = {};
     data[id] = companyInfo;
     this.setState(data)
   },
+
   computeCompanyValue: function(cr, ce, evr, eve){
-    var companyValueRevenue = (this.stringNumber(cr)*this.stringNumber(evr))-(.20*(this.stringNumber(cr)*this.stringNumber(evr)));
-    var companyValueEbitda = (this.stringNumber(ce)*this.stringNumber(eve))-(.20*(this.stringNumber(ce)*this.stringNumber(eve)));
+    var companyValueRevenue = (this.props.stringNumber(cr)*this.props.stringNumber(evr))-(.20*(this.props.stringNumber(cr)*this.props.stringNumber(evr)));
+    var companyValueEbitda = (this.props.stringNumber(ce)*this.props.stringNumber(eve))-(.20*(this.props.stringNumber(ce)*this.props.stringNumber(eve)));
     this.setState({
-      companyValueRevenue :this.numberFormatting(companyValueRevenue),
-      companyValueEbitda: this.numberFormatting(companyValueEbitda)
+      companyValueRevenue :this.props.numberFormatting(companyValueRevenue),
+      companyValueEbitda: this.props.numberFormatting(companyValueEbitda)
     })
   },
 
@@ -82,7 +76,8 @@ var Publiccomps = React.createClass({
   },
 
   render: function(){
-    console.log(this.state)
+  console.log(this.state)
+    console.log('this.props',this.props);
     return (
       <div>
         <h3 className = "cashflows"> Public Comps</h3>
@@ -135,11 +130,11 @@ var Publiccomps = React.createClass({
           </tr>
           <tr>
             <td>Enterprise Value / Revenue</td>
-            <td>{this.state.evRevenue}x</td>
+            <td>{this.state.evRevenue}</td>
           </tr>
           <tr>
             <td>Enterprise Value / EBITDA</td>
-            <td>{this.state.evEbitda}x</td>
+            <td>{this.state.evEbitda}</td>
           </tr>
           </tbody>
         </table>

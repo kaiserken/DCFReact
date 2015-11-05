@@ -2,6 +2,7 @@ var React = require('react'),
     $ = require('jQuery');
     Publiccomps = require('./Publiccomps');
 
+
 var Dcfmodel  = React.createClass({
 
   getInitialState: function(){
@@ -16,24 +17,23 @@ var Dcfmodel  = React.createClass({
       longTermGrowthRate:""
     };
   },
-  // adds commas to the input number
+
   numberFormatting: function(event){
       return (new Intl.NumberFormat({ style: 'currency',currency: 'USD' }).format(event));
   },
-  // changes string back to a number
+
   stringNumber: function(event){
       return ((event).replace(/[, ]+/g, "").trim());
   },
 
-  changeCashFlow: function(event){
+  changeCompanyInfo: function(event){
     event.target.value = this.stringNumber(event.target.value);
-    //console.log(event.target.value);
-    var cashflow = this.numberFormatting(event.target.value);
-    event.target.value = cashflow;
+    var companyInfo = this.numberFormatting(event.target.value);
+    event.target.value = companyInfo;
     var id = event.target.id;
     var data = {};
-    data[id] = cashflow;
-    this.setState(data)
+    data[id] = companyInfo;
+    return this.setState(data)
   },
 
 
@@ -60,28 +60,28 @@ var Dcfmodel  = React.createClass({
       <form  className = "cashflows" onSubmit ={this.computeValue} > In the Boxes below - Input your projected cashflow for each of the next 5 years. A good approximation of cash flow is EBITDA minus average annual capital expenditures. EBITDA is earnings before interest, taxes, depreciation and amortization.
         <br/>
         <br/>
-        <input  id = 'cashFlowYear1' type  = "text"  defaultValue = "" placeholder = "Year 1 cashflow" onChange = {this.changeCashFlow}/>
-        <input id  ='cashFlowYear2' type  = "text"  defaultValue = "" placeholder = "Year 2 cashflow" onChange = {this.changeCashFlow}/>
-        <input id  ='cashFlowYear3' type  = "text"  defaultValue = "" placeholder = "Year 3 cashflow" onChange = {this.changeCashFlow}/>
-        <input id  ='cashFlowYear4' type  = "text" defaultValue = "" placeholder = "Year 4 cashflow" onChange = {this.changeCashFlow}/>
-        <input id = 'cashFlowYear5' type  = "text"  defaultValue = "" placeholder = "Year 5 cashflow" onChange = {this.changeCashFlow}/>
+        <input  id = 'cashFlowYear1' type  = "text"  defaultValue = "" placeholder = "Year 1 cashflow" onChange = {this.changeCompanyInfo}/>
+        <input id  ='cashFlowYear2' type  = "text"  defaultValue = "" placeholder = "Year 2 cashflow" onChange = {this.changeCompanyInfo}/>
+        <input id  ='cashFlowYear3' type  = "text"  defaultValue = "" placeholder = "Year 3 cashflow" onChange = {this.changeCompanyInfo}/>
+        <input id  ='cashFlowYear4' type  = "text" defaultValue = "" placeholder = "Year 4 cashflow" onChange = {this.changeCompanyInfo}/>
+        <input id = 'cashFlowYear5' type  = "text"  defaultValue = "" placeholder = "Year 5 cashflow" onChange = {this.changeCompanyInfo}/>
         <br/>
         <br/>
         <p>Enter the Discount Rate   {this.state.discountRate}%</p>
-        <input id  = 'discountRate' type  = "text"  defaultValue = "" placeholder = "Discount Rate" onChange = {this.changeCashFlow}/>
+        <input id  = 'discountRate' type  = "text"  defaultValue = "" placeholder = "Discount Rate" onChange = {this.changeCompanyInfo}/>
         <br/>
         <br/>
         <p>Enter the Long Term Growth Rate of Cash Flows after year five   {this.state.longTermGrowthRate}%</p>
-        <input id = "longTermGrowthRate" type  = "text"  defaultValue = "" placeholder = "Growth Rate" onChange = {this.changeCashFlow}/>
+        <input id = "longTermGrowthRate" type  = "text"  defaultValue = "" placeholder = "Growth Rate" onChange = {this.changeCompanyInfo}/>
         <br/>
         <br/>
         <button>Calculate Value</button>
 
         </form>
-        <h4 className = "cashflows">Company Value ${this.state.companyValue}</h4>
+        <h5 className = "cashflows">Company Value ${this.state.companyValue}</h5>
         <br/>
         <br/>
-        <Publiccomps/>
+        <Publiccomps numberFormatting = {this.numberFormatting} stringNumber = {this.stringNumber} />
       </div>
 
     );

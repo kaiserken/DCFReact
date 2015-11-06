@@ -56,7 +56,7 @@ var Dcfmodel  = React.createClass({
   console.log(this.state)
     return (
       <div>
-      <h3 className = "cashflows"> Input Cash Flows</h3>
+      <h3 className = "cashflows">Discounted Cashflow</h3>
       <form  className = "cashflows" onSubmit ={this.computeValue} > In the Boxes below - Input your projected cashflow for each of the next 5 years. A good approximation of cash flow is EBITDA minus average annual capital expenditures. EBITDA is earnings before interest, taxes, depreciation and amortization.
         <br/>
         <br/>
@@ -78,7 +78,7 @@ var Dcfmodel  = React.createClass({
         <button>Calculate Value</button>
 
         </form>
-        <h5 className = "cashflows">Company Value ${this.state.companyValue}</h5>
+        <h5 className = "cashflows">Your Company's Discounted Cashflow Value ${this.state.companyValue}</h5>
         <br/>
         <br/>
         <Publiccomps numberFormatting = {this.numberFormatting} stringNumber = {this.stringNumber} />

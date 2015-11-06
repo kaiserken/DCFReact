@@ -54,14 +54,14 @@ var Publiccomps = React.createClass({
 
   computeCompanyValue: function(key, cr, ce, evr, eve){
 
-    if (key === '1'){this.state.comparablesArray[0]=((this.props.stringNumber(cr)*this.props.stringNumber(evr))-(.20*(this.props.stringNumber(cr)*this.props.stringNumber(evr))));
-    this.state.comparablesArray[1]=((this.props.stringNumber(ce)*this.props.stringNumber(eve))-(.20*(this.props.stringNumber(ce)*this.props.stringNumber(eve))));}
+    if (key === '1'){this.state.comparablesArray[0]=Math.round((this.props.stringNumber(cr)*this.props.stringNumber(evr))-(.20*(this.props.stringNumber(cr)*this.props.stringNumber(evr))));
+    this.state.comparablesArray[1]=Math.round((this.props.stringNumber(ce)*this.props.stringNumber(eve))-(.20*(this.props.stringNumber(ce)*this.props.stringNumber(eve))));}
 
-    if (key === '2'){this.state.comparablesArray[2]=((this.props.stringNumber(cr)*this.props.stringNumber(evr))-(.20*(this.props.stringNumber(cr)*this.props.stringNumber(evr))));
-    this.state.comparablesArray[3]=((this.props.stringNumber(ce)*this.props.stringNumber(eve))-(.20*(this.props.stringNumber(ce)*this.props.stringNumber(eve))));}
+    if (key === '2'){this.state.comparablesArray[2]=Math.round((this.props.stringNumber(cr)*this.props.stringNumber(evr))-(.20*(this.props.stringNumber(cr)*this.props.stringNumber(evr))));
+    this.state.comparablesArray[3]=Math.round((this.props.stringNumber(ce)*this.props.stringNumber(eve))-(.20*(this.props.stringNumber(ce)*this.props.stringNumber(eve))));}
 
-    if (key === '3'){this.state.comparablesArray[4]=((this.props.stringNumber(cr)*this.props.stringNumber(evr))-(.20*(this.props.stringNumber(cr)*this.props.stringNumber(evr))));
-    this.state.comparablesArray[5]=((this.props.stringNumber(ce)*this.props.stringNumber(eve))-(.20*(this.props.stringNumber(ce)*this.props.stringNumber(eve))));}
+    if (key === '3'){this.state.comparablesArray[4]=Math.round((this.props.stringNumber(cr)*this.props.stringNumber(evr))-(.20*(this.props.stringNumber(cr)*this.props.stringNumber(evr))));
+    this.state.comparablesArray[5]=Math.round((this.props.stringNumber(ce)*this.props.stringNumber(eve))-(.20*(this.props.stringNumber(ce)*this.props.stringNumber(eve))));}
 
     this.setState({
       companyValueRevenue1:this.props.numberFormatting(this.state.comparablesArray[0]),
@@ -72,8 +72,8 @@ var Publiccomps = React.createClass({
       companyValueEbitda3: this.props.numberFormatting(this.state.comparablesArray[5])
     })
     this.setState({
-      companyValueRevenue: this.props.numberFormatting((this.state.comparablesArray[0]+this.state.comparablesArray[2]+this.state.comparablesArray[4])/3),
-      companyValueEbitda: this.props.numberFormatting((this.state.comparablesArray[1]+this.state.comparablesArray[3]+this.state.comparablesArray[5])/3)
+      companyValueRevenue: this.props.numberFormatting(Math.round((this.state.comparablesArray[0]+this.state.comparablesArray[2]+this.state.comparablesArray[4])/3)),
+      companyValueEbitda: this.props.numberFormatting(Math.round((this.state.comparablesArray[1]+this.state.comparablesArray[3]+this.state.comparablesArray[5])/3))
     })
 
   },

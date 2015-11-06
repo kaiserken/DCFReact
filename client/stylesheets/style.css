@@ -18,3 +18,27 @@ body {
   margin-right: 10px;
 
 }
+.table {
+  table-layout: fixed;
+  width: 100%;
+  white-space: nowrap;
+}
+.table td {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Column widths are based on these cells */
+.row-info {
+  width: 30%;
+}
+.row-comp1 {
+  width: 20%;
+}
+.row-comp2 {
+  width: 20%;
+}
+.row-comp3 {
+  width: 20%;
+}

@@ -1,7 +1,8 @@
 var React = require('react'),
-    $ = require('jQuery'),
+  //  $ = require('jQuery'),
     async = require('async');
-
+    companylist = require('./../companylistmaster');
+    Searchticker = require('./Searchticker')
 
 
 var Publiccomps = React.createClass({
@@ -19,6 +20,9 @@ var Publiccomps = React.createClass({
       ticker1:"",
       ticker2:"",
       ticker3:"",
+      companyName1:"",
+      companyName2:"",
+      companyName3:"",
       marketCap1: "",
       enterpriseValue1: "",
       revenue1: "",
@@ -42,6 +46,7 @@ var Publiccomps = React.createClass({
   },
 
   changeCompanyInfo: function(event){
+    console.log('companylist',companylist[0]);
     console.log(this.props)
     event.target.value = this.props.stringNumber(event.target.value);
     var companyInfo = this.props.numberFormatting(event.target.value);
@@ -93,6 +98,23 @@ var Publiccomps = React.createClass({
     })
 
     var tickers  = {1:this.state.ticker1, 2:this.state.ticker2, 3:this.state.ticker3};
+    for (var i=0; i<companylist.length; i++){
+      if ((this.state.ticker1).toUpperCase()===companylist[i].Symbol){
+        this.setState({
+          companyName1:companylist[i].Name
+        })
+      }
+      if ((this.state.ticker2).toUpperCase()===companylist[i].Symbol){
+        this.setState({
+          companyName2:companylist[i].Name
+        })
+      }
+        if ((this.state.ticker3).toUpperCase()===companylist[i].Symbol){
+          this.setState({
+            companyName3:companylist[i].Name
+          })
+      };
+    };
     var that = this;
     async.forEachOf(tickers, function (value, key, callback) {
 
@@ -125,8 +147,14 @@ var Publiccomps = React.createClass({
     console.log(this.state);
     return (
       <div>
-        <h3 className = "cashflows"> Public Comps</h3>
-        <form  className = "cashflows" onSubmit ={this.getComps} > In the Boxes below - Input the ticker symbols of three comparable companies and your company's 12-month trailing Revenue and EBITDA. A 20% liquidity discount is applied because you are private company.
+        <form  className = "cashflows, col-md-6" onSubmit ={this.getComps} > In the Boxes below - Input the ticker symbols of three comparable companies and your company's 12-month trailing Revenue and EBITDA. A 20% liquidity discount is applied because you are private company.
+          <br/>
+          <br/>
+          <Searchticker/>
+          <br/>
+          <br/>
+          <br/>
+          <br/>
           <br/>
           <br/>
           <input  id = 'ticker1' type  = "text"  defaultValue = "" placeholder = "Ticker Symbol" onChange = {this.changeComps}/>
@@ -135,8 +163,6 @@ var Publiccomps = React.createClass({
           <br/>
           <br/>
           <input  id = 'companyRevenue' type  = "text"  defaultValue = "" placeholder = "Your Revenue" onChange = {this.changeCompanyInfo}/>
-          <br/>
-          <br/>
           <input  id = 'companyEbitda' type  = "text"  defaultValue = "" placeholder = "Your EBITDA" onChange = {this.changeCompanyInfo}/>
           <br/>
           <br/>
@@ -144,10 +170,7 @@ var Publiccomps = React.createClass({
           <br/>
           <br/>
         </form>
-        <h5 className = "cashflows">Your Company's value based on average multiple of Revenue is ${this.state.companyValueRevenue}</h5>
-        <h5 className= "cashflows">Your Company's value based on average multiple of EBITDA is ${this.state.companyValueEbitda}</h5>
-        <br/>
-        <br/>
+        <p className = 'col-md-12'>Your Company's Discounted Cashflow Value ${this.props.companyValue}</p>
         <table className = "cashflows, table">
         <thead>
           <tr>
@@ -158,6 +181,12 @@ var Publiccomps = React.createClass({
           </tr>
         </thead>
         <tbody>
+          <tr>
+            <td>Company Name</td>
+            <td>{this.state.companyName1}</td>
+            <td>{this.state.companyName2}</td>
+            <td>{this.state.companyName3}</td>
+            </tr>
           <tr>
             <td>Company Ticker Symbol</td>
             <td>{this.state.ticker1}</td>
@@ -211,6 +240,18 @@ var Publiccomps = React.createClass({
             <td>${this.state.companyValueEbitda1}</td>
             <td>${this.state.companyValueEbitda2}</td>
             <td>${this.state.companyValueEbitda3}</td>
+          </tr>
+          <tr>
+            <td>Your Company's Value - average multiple of Revenue</td>
+            <td>${this.state.companyValueRevenue}</td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>Your Company's Value - average multiple of EBITDA</td>
+            <td>${this.state.companyValueEbitda}</td>
+            <td></td>
+            <td></td>
           </tr>
           </tbody>
         </table>

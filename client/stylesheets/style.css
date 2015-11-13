@@ -12,6 +12,9 @@ body {
   text-align: center;
   background-color: #D6D8DD;
 }
+.typeahead{
+  width:400px;
+}
 .cashflows{
   font-family: 'Open Sans', sans-serif;
   margin-left: 10px;

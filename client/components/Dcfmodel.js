@@ -1,6 +1,7 @@
 var React = require('react'),
-    $ = require('jQuery');
+    //$ = require('jQuery');
     Publiccomps = require('./Publiccomps');
+
 
 
 var Dcfmodel  = React.createClass({
@@ -55,9 +56,10 @@ var Dcfmodel  = React.createClass({
   render: function(){
   console.log(this.state)
     return (
-      <div>
-      <h3 className = "cashflows">Discounted Cashflow</h3>
-      <form  className = "cashflows" onSubmit ={this.computeValue} > In the Boxes below - Input your projected cashflow for each of the next 5 years. A good approximation of cash flow is EBITDA minus average annual capital expenditures. EBITDA is earnings before interest, taxes, depreciation and amortization.
+      <div className ='col-md-12'>
+      <h3 className ="cashflows, col-md-6">Discounted Cashflow</h3>
+      <h3 className ="cashflows, col-md-6">Public Comps</h3>
+      <form  className ="cashflows, col-md-6" onSubmit ={this.computeValue} > In the Boxes below - Input your projected cashflow for each of the next 5 years. A good approximation of cash flow is EBITDA minus average annual capital expenditures. EBITDA is earnings before interest, taxes, depreciation and amortization.
         <br/>
         <br/>
         <input  id = 'cashFlowYear1' type  = "text"  defaultValue = "" placeholder = "Year 1 cashflow" onChange = {this.changeCompanyInfo}/>
@@ -76,12 +78,15 @@ var Dcfmodel  = React.createClass({
         <br/>
         <br/>
         <button>Calculate Value</button>
-
+        <br/>
+        <br/>
         </form>
-        <h5 className = "cashflows">Your Company's Discounted Cashflow Value ${this.state.companyValue}</h5>
+
+        <Publiccomps className ='col-md-6' companyValue = {this.state.companyValue} numberFormatting = {this.numberFormatting} stringNumber = {this.stringNumber} />
         <br/>
         <br/>
-        <Publiccomps numberFormatting = {this.numberFormatting} stringNumber = {this.stringNumber} />
+
+
       </div>
 
     );

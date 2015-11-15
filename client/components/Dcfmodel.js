@@ -69,11 +69,11 @@ var Dcfmodel  = React.createClass({
         <input id = 'cashFlowYear5' type  = "text"  defaultValue = "" placeholder = "Year 5 cashflow" onChange = {this.changeCompanyInfo}/>
         <br/>
         <br/>
-        <p>Enter the Discount Rate   {this.state.discountRate}%</p>
+        <p>Enter a Discount Rate for cashflows  {this.state.discountRate}%</p>
         <input id  = 'discountRate' type  = "text"  defaultValue = "" placeholder = "Discount Rate" onChange = {this.changeCompanyInfo}/>
         <br/>
         <br/>
-        <p>Enter the Long Term Growth Rate of Cash Flows after year five   {this.state.longTermGrowthRate}%</p>
+        <p>Enter a Long Term Growth Rate for Cashflows  {this.state.longTermGrowthRate}%</p>
         <input id = "longTermGrowthRate" type  = "text"  defaultValue = "" placeholder = "Growth Rate" onChange = {this.changeCompanyInfo}/>
         <br/>
         <br/>

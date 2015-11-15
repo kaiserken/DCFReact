@@ -230,25 +230,25 @@ var Publiccomps = React.createClass({
             <td>{this.state.evEbitda3}</td>
           </tr>
           <tr>
-            <td>Your Company's Value based on multiple of Revenue</td>
+            <td>Your Value - multiple of Revenue</td>
             <td>${this.state.companyValueRevenue1}</td>
             <td>${this.state.companyValueRevenue2}</td>
             <td>${this.state.companyValueRevenue3}</td>
           </tr>
           <tr>
-            <td>Your Company's Value based on multiple of EBITDA</td>
+            <td>Your Value - multiple of EBITDA</td>
             <td>${this.state.companyValueEbitda1}</td>
             <td>${this.state.companyValueEbitda2}</td>
             <td>${this.state.companyValueEbitda3}</td>
           </tr>
           <tr>
-            <td>Your Company's Value - average multiple of Revenue</td>
+            <td>Your Value - avg multiple of Revenue</td>
             <td>${this.state.companyValueRevenue}</td>
             <td></td>
             <td></td>
           </tr>
           <tr>
-            <td>Your Company's Value - average multiple of EBITDA</td>
+            <td>Your Value - avg multiple of EBITDA</td>
             <td>${this.state.companyValueEbitda}</td>
             <td></td>
             <td></td>

@@ -48,13 +48,18 @@ var Publiccomps = React.createClass({
 
 
   changeCompanyInfo: function(event){
-    event.target.value = this.props.stringNumber(event.target.value);
-    var companyInfo = this.props.numberFormatting(event.target.value);
-    event.target.value = companyInfo;
     var id = event.target.id;
     var data = {};
+    event.target.value = this.props.stringNumber(event.target.value);
+    if (isNaN(event.target.value)){
+      console.log(true);
+      data[id] = '';
+      return this.setState(data);
+    }
+    var companyInfo = this.props.numberFormatting(event.target.value);
+    event.target.value = companyInfo;
     data[id] = companyInfo;
-    this.setState(data)
+    return this.setState(data);
   },
 
   computeCompanyValue: function(key, cr, ce, evr, eve){
@@ -217,15 +222,14 @@ var Publiccomps = React.createClass({
             <input  className = "form-control" id = 'ticker3' type  = "text"  defaultValue = "" placeholder = "Ticker Symbol" onChange = {this.changeComps}/>
             <br/>
             <label>Revenue</label>
-            <input  className = "form-control" id = 'companyRevenue' type  = "text"  defaultValue = "" placeholder = "Your Revenue" onChange = {this.changeCompanyInfo}/>
+            <input  className = "form-control" id = 'companyRevenue' value  = {this.state.companyRevenue}  type  = "text"  defaultValue = "" placeholder = "Your Revenue" onChange = {this.changeCompanyInfo}/>
             <br/>
             <label>EBITDA</label>
-            <input  className = "form-control" id = 'companyEbitda' type  = "text"  defaultValue = "" placeholder = "Your EBITDA" onChange = {this.changeCompanyInfo}/>
+            <input  className = "form-control" id = 'companyEbitda' value  = {this.state.companyEbitda} type  = "text"  defaultValue = "" placeholder = "Your EBITDA" onChange = {this.changeCompanyInfo}/>
             <br/>
             <br/>
             <button className = "btn btn-primary">Retrieve Comps</button>
             <br/>
-            <p className = "danger">{this.state.error}</p>
             <br/>
             <label>Search for a Public Company Ticker</label>
             <br/>
@@ -237,12 +241,14 @@ var Publiccomps = React.createClass({
         <br/>
         <br/>
         {this.renderResults()}
+        <p className = "danger">{this.state.error}</p>
+        <br/>
       </div>
 
     );
   },
   renderResults: function(){
-    if (this.state.companyValueRevenue1 != ''){
+    if (this.state.companyValueRevenue1 != '' || this.state.companyValueRevenue2 != '' || this.state.companyValueRevenue2 != ''){
       return (
         <div>
           <table className = "cashflows, table">

@@ -1,8 +1,5 @@
-var React = require('react'),
-    //$ = require('jQuery');
-    Publiccomps = require('./Publiccomps');
-
-
+var React = require('react');
+var Publiccomps = require('./Publiccomps');
 
 var Dcfmodel  = React.createClass({
 
@@ -34,7 +31,7 @@ var Dcfmodel  = React.createClass({
     var id = event.target.id;
     var data = {};
     data[id] = companyInfo;
-    return this.setState(data)
+    return this.setState(data);
   },
 
 
@@ -50,39 +47,52 @@ var Dcfmodel  = React.createClass({
     event.preventDefault();
     var companysValue  = this.discountedValue([this.state.cashFlowYear1, this.state.cashFlowYear2, this.state.cashFlowYear3, this.state.cashFlowYear4, this.state.cashFlowYear5], this.state.discountRate, this.state.longTermGrowthRate);
     companysValue = this.numberFormatting(companysValue);
-    this.setState({companyValue : companysValue})
+    this.setState({companyValue : `Your Company's Discounted Cashflow Value $${companysValue}`});
   },
 
   render: function(){
-  console.log(this.state)
     return (
-      <div className ='col-md-12'>
-      <h3 className ="cashflows, col-md-6">Discounted Cashflow</h3>
-      <h3 className ="cashflows, col-md-6">Public Comps</h3>
-      <form  className ="cashflows, col-md-6" onSubmit ={this.computeValue} > In the Boxes below - Input your projected cashflow for each of the next 5 years. A good approximation of cash flow is EBITDA minus average annual capital expenditures. EBITDA is earnings before interest, taxes, depreciation and amortization.
-        <br/>
-        <br/>
-        <input  id = 'cashFlowYear1' type  = "text"  defaultValue = "" placeholder = "Year 1 cashflow" onChange = {this.changeCompanyInfo}/>
-        <input id  ='cashFlowYear2' type  = "text"  defaultValue = "" placeholder = "Year 2 cashflow" onChange = {this.changeCompanyInfo}/>
-        <input id  ='cashFlowYear3' type  = "text"  defaultValue = "" placeholder = "Year 3 cashflow" onChange = {this.changeCompanyInfo}/>
-        <input id  ='cashFlowYear4' type  = "text" defaultValue = "" placeholder = "Year 4 cashflow" onChange = {this.changeCompanyInfo}/>
-        <input id = 'cashFlowYear5' type  = "text"  defaultValue = "" placeholder = "Year 5 cashflow" onChange = {this.changeCompanyInfo}/>
-        <br/>
-        <br/>
-        <p>Enter a Discount Rate for cashflows  {this.state.discountRate}%</p>
-        <input id  = 'discountRate' type  = "text"  defaultValue = "" placeholder = "Discount Rate" onChange = {this.changeCompanyInfo}/>
-        <br/>
-        <br/>
-        <p>Enter a Long Term Growth Rate for Cashflows  {this.state.longTermGrowthRate}%</p>
-        <input id = "longTermGrowthRate" type  = "text"  defaultValue = "" placeholder = "Growth Rate" onChange = {this.changeCompanyInfo}/>
-        <br/>
-        <br/>
-        <button>Calculate Value</button>
-        <br/>
-        <br/>
-        </form>
+      <div>
+        <div>
+          <h3 className ="cashflows">Discounted Cashflow</h3>
+          <form  className ="cashflows" onSubmit ={this.computeValue} >
+            <div>In the Boxes below - Input your projected cashflow for each of the next 5 years./N A good approximation of cash flow is EBITDA minus average annual capital expenditures. EBITDA is earnings before interest, taxes, depreciation and amortization. Enter a Discount Rate for cashflows - For established companies the Discount Rate is often between 15% & 25%. Enter a Long Term Growth Rate for Cashflows - A safe rate to use would be between 1% and 3%</div>
+            <div className = "col-md-6">
+            <br/>
+            <br/>
+            <input  id = 'cashFlowYear1' type  = "text"  defaultValue = "" placeholder = "Year 1 cashflow" onChange = {this.changeCompanyInfo}/>
+            <br/>
+            <input id  ='cashFlowYear2' type  = "text"  defaultValue = "" placeholder = "Year 2 cashflow" onChange = {this.changeCompanyInfo}/>
+            <br/>
+            <input id  ='cashFlowYear3' type  = "text"  defaultValue = "" placeholder = "Year 3 cashflow" onChange = {this.changeCompanyInfo}/>
+            <br/>
+            <input id  ='cashFlowYear4' type  = "text" defaultValue = "" placeholder = "Year 4 cashflow" onChange = {this.changeCompanyInfo}/>
+            <br/>
+            <input id = 'cashFlowYear5' type  = "text"  defaultValue = "" placeholder = "Year 5 cashflow" onChange = {this.changeCompanyInfo}/>
+            </div>
+            <div className = "col-md-6">
+            <br/>
+            <br/>  
+            <p>Your Discount Rate: {this.state.discountRate}%</p>
+            <input id  = 'discountRate' type  = "text"  defaultValue = "" placeholder = "Discount Rate" onChange = {this.changeCompanyInfo}/>
+            <br/>
+            <br/>
+            <p>  </p>
+            <p>Your Growth Rate: {this.state.longTermGrowthRate}%</p>
+            <input id = "longTermGrowthRate" type  = "text"  defaultValue = "" placeholder = "Growth Rate" onChange = {this.changeCompanyInfo}/>
+            <br/>
+            <br/>
+            </div>
+            <button>Calculate Value</button>
+            <br/>
+            <br/>
+            <p className = "value">{this.state.companyValue}</p>
+            </form>
 
-        <Publiccomps className ='col-md-6' companyValue = {this.state.companyValue} numberFormatting = {this.numberFormatting} stringNumber = {this.stringNumber} />
+
+            <h3 className ="cashflows" >Public Comps</h3>
+            <Publiccomps  companyValue = {this.state.companyValue} numberFormatting = {this.numberFormatting} stringNumber = {this.stringNumber} />
+          </div>
         <br/>
         <br/>
 

@@ -5,12 +5,16 @@ body {
   font-family: 'Open Sans', sans-serif;
 }
 
+.danger {
+  color: red;
+}
+
+.value {
+  color: green;
+}
+
 #title{
-  font-family: 'Open Sans', sans-serif;
-  font-size: 25px;
-  color: black;
   text-align: center;
-  background-color: #D6D8DD;
 }
 .typeahead{
   width:400px;

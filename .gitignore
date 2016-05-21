@@ -1,3 +1,4 @@
 node_modules
 client/build
 client/bower_components
+.DS_Store

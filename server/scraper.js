@@ -27,6 +27,6 @@ var scrapeController = {
 
     });
   }
-}
+};
 
 module.exports = scrapeController;

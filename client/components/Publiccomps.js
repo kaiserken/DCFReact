@@ -1,8 +1,7 @@
 var React = require('react'),
-  //  $ = require('jQuery'),
-    async = require('async');
-    companylist = require('./../companylistmaster');
-    Searchticker = require('./Searchticker')
+async = require('async');
+var companylist = require('../companylistmaster');
+var Searchticker = require('./Searchticker');
 
 
 var Publiccomps = React.createClass({
@@ -11,12 +10,12 @@ var Publiccomps = React.createClass({
     return {
       companyRevenue:"",
       companyEbitda:"",
-      companyValueRevenue1:"",
-      companyValueEbitda1:"",
-      companyValueRevenue2:"",
-      companyValueEbitda2:"",
-      companyValueRevenue3:"",
-      companyValueEbitda3:"",
+      companyValueRevenue1:'',
+      companyValueEbitda1:'',
+      companyValueRevenue2:'',
+      companyValueEbitda2:'',
+      companyValueRevenue3:'',
+      companyValueEbitda3:'',
       ticker1:"",
       ticker2:"",
       ticker3:"",
@@ -41,13 +40,12 @@ var Publiccomps = React.createClass({
       ebitda3: "",
       evRevenue3: "",
       evEbitda3: "",
-      comparablesArray:[]
+      comparablesArray:[],
+      error:""
     };
   },
 
   changeCompanyInfo: function(event){
-    console.log('companylist',companylist[0]);
-    console.log(this.props)
     event.target.value = this.props.stringNumber(event.target.value);
     var companyInfo = this.props.numberFormatting(event.target.value);
     event.target.value = companyInfo;
@@ -59,32 +57,59 @@ var Publiccomps = React.createClass({
 
   computeCompanyValue: function(key, cr, ce, evr, eve){
 
-    if (key === '1'){this.state.comparablesArray[0]=Math.round((this.props.stringNumber(cr)*this.props.stringNumber(evr))-(.20*(this.props.stringNumber(cr)*this.props.stringNumber(evr))));
-    this.state.comparablesArray[1]=Math.round((this.props.stringNumber(ce)*this.props.stringNumber(eve))-(.20*(this.props.stringNumber(ce)*this.props.stringNumber(eve))));}
+    if (key === '1'){
+      this.state.comparablesArray[0]= Math.round(this.props.stringNumber(cr)*this.props.stringNumber(evr))*.8;
+      this.state.comparablesArray[1]= Math.round(this.props.stringNumber(ce)*this.props.stringNumber(eve))*.8;
+      this.setState({
+        companyValueRevenue1:`$${this.props.numberFormatting(this.state.comparablesArray[0])}`,
+        companyValueEbitda1: `$${this.props.numberFormatting(this.state.comparablesArray[1])}`,
+      });
+    }
 
-    if (key === '2'){this.state.comparablesArray[2]=Math.round((this.props.stringNumber(cr)*this.props.stringNumber(evr))-(.20*(this.props.stringNumber(cr)*this.props.stringNumber(evr))));
-    this.state.comparablesArray[3]=Math.round((this.props.stringNumber(ce)*this.props.stringNumber(eve))-(.20*(this.props.stringNumber(ce)*this.props.stringNumber(eve))));}
+    if (key === '2') {
+      this.state.comparablesArray[2]= Math.round(this.props.stringNumber(cr)*this.props.stringNumber(evr))*.8;
+      this.state.comparablesArray[3]= Math.round(this.props.stringNumber(ce)*this.props.stringNumber(eve))*.8;
+      this.setState({
+        companyValueRevenue2:`$${this.props.numberFormatting(this.state.comparablesArray[2])}`,
+        companyValueEbitda2: `$${this.props.numberFormatting(this.state.comparablesArray[3])}`,
+      });
+    }
 
-    if (key === '3'){this.state.comparablesArray[4]=Math.round((this.props.stringNumber(cr)*this.props.stringNumber(evr))-(.20*(this.props.stringNumber(cr)*this.props.stringNumber(evr))));
-    this.state.comparablesArray[5]=Math.round((this.props.stringNumber(ce)*this.props.stringNumber(eve))-(.20*(this.props.stringNumber(ce)*this.props.stringNumber(eve))));}
+    if (key === '3') {
+      this.state.comparablesArray[4]= Math.round(this.props.stringNumber(cr)*this.props.stringNumber(evr))*.8;
+      this.state.comparablesArray[5]= Math.round(this.props.stringNumber(ce)*this.props.stringNumber(eve))*.8;
+      this.setState({
+        companyValueRevenue3:`$${this.props.numberFormatting(this.state.comparablesArray[4])}`,
+        companyValueEbitda3: `$${this.props.numberFormatting(this.state.comparablesArray[5])}`,
+      });
+
+    }
+    var divider = 0;
+    var revSum = 0;
+    var ebitdaSum  = 0;
+
+    for (var x = 0; x<this.state.comparablesArray.length; x++){
+      if (this.state.comparablesArray[x]<=0){
+        this.setState({error: "One or more of the companies entered has a negative value for EBITDA. Negative values make the comparison meaningless. Look at table below and replace that company's ticker with a new one or remove it and resubmit."});
+      }
+      if (this.state.comparablesArray[x] && x%2 ===0){
+        revSum += this.state.comparablesArray[x];
+        divider += 1;
+      }
+      if (this.state.comparablesArray[x] && x%2 ===1){
+        ebitdaSum += this.state.comparablesArray[x];
+      }
+    }
 
     this.setState({
-      companyValueRevenue1:this.props.numberFormatting(this.state.comparablesArray[0]),
-      companyValueEbitda1: this.props.numberFormatting(this.state.comparablesArray[1]),
-      companyValueRevenue2:this.props.numberFormatting(this.state.comparablesArray[2]),
-      companyValueEbitda2: this.props.numberFormatting(this.state.comparablesArray[3]),
-      companyValueRevenue3:this.props.numberFormatting(this.state.comparablesArray[4]),
-      companyValueEbitda3: this.props.numberFormatting(this.state.comparablesArray[5])
-    })
-    this.setState({
-      companyValueRevenue: this.props.numberFormatting(Math.round((this.state.comparablesArray[0]+this.state.comparablesArray[2]+this.state.comparablesArray[4])/3)),
-      companyValueEbitda: this.props.numberFormatting(Math.round((this.state.comparablesArray[1]+this.state.comparablesArray[3]+this.state.comparablesArray[5])/3))
-    })
+      companyValueRevenue: `$${this.props.numberFormatting(Math.round(revSum/divider))}`,
+      companyValueEbitda: `$${this.props.numberFormatting(Math.round(ebitdaSum/divider))}`
+    });
 
   },
 
   changeComps: function(event){
-    var ticker  = event.target.value
+    var ticker  = event.target.value;
     var id = event.target.id;
     var data = {};
     data[id] = ticker;
@@ -94,27 +119,55 @@ var Publiccomps = React.createClass({
   getComps: function(event){
     event.preventDefault();
     this.setState({
+      companyValueRevenue1:"",
+      companyValueEbitda1:"",
+      companyValueRevenue2:"",
+      companyValueEbitda2:"",
+      companyValueRevenue3:"",
+      companyValueEbitda3:"",
+      companyName1:"",
+      companyName2:"",
+      companyName3:"",
+      marketCap1: "",
+      enterpriseValue1: "",
+      revenue1: "",
+      ebitda1: "",
+      evRevenue1: "",
+      evEbitda1: "",
+      marketCap2: "",
+      enterpriseValue2: "",
+      revenue2: "",
+      ebitda2: "",
+      evRevenue2: "",
+      evEbitda2: "",
+      marketCap3: "",
+      enterpriseValue3: "",
+      revenue3: "",
+      ebitda3: "",
+      evRevenue3: "",
+      evEbitda3: "",
       comparablesArray:[],
-    })
+      error:""
+    });
 
     var tickers  = {1:this.state.ticker1, 2:this.state.ticker2, 3:this.state.ticker3};
     for (var i=0; i<companylist.length; i++){
       if ((this.state.ticker1).toUpperCase()===companylist[i].Symbol){
         this.setState({
           companyName1:companylist[i].Name
-        })
+        });
       }
       if ((this.state.ticker2).toUpperCase()===companylist[i].Symbol){
         this.setState({
           companyName2:companylist[i].Name
-        })
+        });
       }
-        if ((this.state.ticker3).toUpperCase()===companylist[i].Symbol){
-          this.setState({
-            companyName3:companylist[i].Name
-          })
-      };
-    };
+      if ((this.state.ticker3).toUpperCase()===companylist[i].Symbol){
+        this.setState({
+          companyName3:companylist[i].Name
+        });
+      }
+    }
     var that = this;
     async.forEachOf(tickers, function (value, key, callback) {
 
@@ -132,137 +185,147 @@ var Publiccomps = React.createClass({
             ['evEbitda'+key]: results[8].numbers
           }),
 
-          that.computeCompanyValue(key,that.state.companyRevenue, that.state.companyEbitda, that.state['evRevenue'+key], that.state['evEbitda'+key]);
+          that.computeCompanyValue(key, that.state.companyRevenue, that.state.companyEbitda, that.state['evRevenue'+key], that.state['evEbitda'+key]);
         },
       });
 
       callback();
-      // console.log("tse",this.state.enterpriseValue1)
-
-    //// callback goes here
     });
+
   },
 
   render: function(){
-    console.log(this.state);
     return (
       <div>
-        <form  className = "cashflows, col-md-6" onSubmit ={this.getComps} > In the Boxes below - Input the ticker symbols of three comparable companies and your company's 12-month trailing Revenue and EBITDA. A 20% liquidity discount is applied because you are private company.
-          <br/>
-          <br/>
-          <Searchticker/>
-          <br/>
-          <br/>
-          <br/>
-          <br/>
-          <br/>
-          <br/>
-          <input  id = 'ticker1' type  = "text"  defaultValue = "" placeholder = "Ticker Symbol" onChange = {this.changeComps}/>
-          <input  id = 'ticker2' type  = "text"  defaultValue = "" placeholder = "Ticker Symbol" onChange = {this.changeComps}/>
-          <input  id = 'ticker3' type  = "text"  defaultValue = "" placeholder = "Ticker Symbol" onChange = {this.changeComps}/>
-          <br/>
-          <br/>
-          <input  id = 'companyRevenue' type  = "text"  defaultValue = "" placeholder = "Your Revenue" onChange = {this.changeCompanyInfo}/>
-          <input  id = 'companyEbitda' type  = "text"  defaultValue = "" placeholder = "Your EBITDA" onChange = {this.changeCompanyInfo}/>
-          <br/>
-          <br/>
-          <button>Retrieve Comps</button>
+        <form  className = "cashflows" onSubmit ={this.getComps}>
+          <div>
+          In the Boxes below - Input the ticker symbols of three comparable companies and your company's 12-month trailing Revenue and EBITDA. A 20% liquidity discount is applied because you are private company.
+          </div>
+          <div className = "col-md-6">
+            <br/>
+            <br/>
+            <input  id = 'ticker1' type  = "text"  defaultValue = "" placeholder = "Ticker Symbol" onChange = {this.changeComps}/>
+            <input  id = 'ticker2' type  = "text"  defaultValue = "" placeholder = "Ticker Symbol" onChange = {this.changeComps}/>
+            <input  id = 'ticker3' type  = "text"  defaultValue = "" placeholder = "Ticker Symbol" onChange = {this.changeComps}/>
+            <br/>
+            <br/>
+            <input  id = 'companyRevenue' type  = "text"  defaultValue = "" placeholder = "Your Revenue" onChange = {this.changeCompanyInfo}/>
+            <input  id = 'companyEbitda' type  = "text"  defaultValue = "" placeholder = "Your EBITDA" onChange = {this.changeCompanyInfo}/>
+            <br/>
+            <br/>
+            <button>Retrieve Comps</button>
+            <p></p>
+            <p className = "danger">{this.state.error}</p>
+          </div>
+          <div className = "col-md-6">
+            <br/>
+            <br/>
+            <Searchticker/>
+          </div>
           <br/>
           <br/>
         </form>
-        <p className = 'col-md-12'>Your Company's Discounted Cashflow Value ${this.props.companyValue}</p>
-        <table className = "cashflows, table">
-        <thead>
-          <tr>
-            <th className ="row-1, row-info" >Comparable Company Numbers</th>
-            <th className ="row-2, row-comp1"></th>
-            <th className ="row-3, row-comp2"></th>
-            <th className= "row-4, row-comp3"></th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Company Name</td>
-            <td>{this.state.companyName1}</td>
-            <td>{this.state.companyName2}</td>
-            <td>{this.state.companyName3}</td>
-            </tr>
-          <tr>
-            <td>Company Ticker Symbol</td>
-            <td>{this.state.ticker1}</td>
-            <td>{this.state.ticker2}</td>
-            <td>{this.state.ticker3}</td>
-          </tr>
-          <tr>
-            <td>Market Capitalization</td>
-            <td>{this.state.marketCap1}</td>
-            <td>{this.state.marketCap2}</td>
-            <td>{this.state.marketCap3}</td>
-          </tr>
-          <tr>
-            <td>Enterprise Value</td>
-            <td>{this.state.enterpriseValue1}</td>
-            <td>{this.state.enterpriseValue2}</td>
-            <td>{this.state.enterpriseValue3}</td>
-          </tr>
-          <tr>
-            <td>Revenue</td>
-            <td>{this.state.revenue1}</td>
-            <td>{this.state.revenue2}</td>
-            <td>{this.state.revenue3}</td>
-          </tr>
-          <tr>
-            <td>EBITDA</td>
-            <td>{this.state.ebitda1}</td>
-            <td>{this.state.ebitda2}</td>
-            <td>{this.state.ebitda3}</td>
-          </tr>
-          <tr>
-            <td>Enterprise Value / Revenue</td>
-            <td>{this.state.evRevenue1}</td>
-            <td>{this.state.evRevenue2}</td>
-            <td>{this.state.evRevenue3}</td>
-          </tr>
-          <tr>
-            <td>Enterprise Value / EBITDA</td>
-            <td>{this.state.evEbitda1}</td>
-            <td>{this.state.evEbitda2}</td>
-            <td>{this.state.evEbitda3}</td>
-          </tr>
-          <tr>
-            <td>Your Value - multiple of Revenue</td>
-            <td>${this.state.companyValueRevenue1}</td>
-            <td>${this.state.companyValueRevenue2}</td>
-            <td>${this.state.companyValueRevenue3}</td>
-          </tr>
-          <tr>
-            <td>Your Value - multiple of EBITDA</td>
-            <td>${this.state.companyValueEbitda1}</td>
-            <td>${this.state.companyValueEbitda2}</td>
-            <td>${this.state.companyValueEbitda3}</td>
-          </tr>
-          <tr>
-            <td>Your Value - avg multiple of Revenue</td>
-            <td>${this.state.companyValueRevenue}</td>
-            <td></td>
-            <td></td>
-          </tr>
-          <tr>
-            <td>Your Value - avg multiple of EBITDA</td>
-            <td>${this.state.companyValueEbitda}</td>
-            <td></td>
-            <td></td>
-          </tr>
-          </tbody>
-        </table>
-        <br/>
-        <br/>
+        {this.renderResults()}
       </div>
 
     );
+  },
+  renderResults: function(){
+    if (this.state.companyValueRevenue1 != ''){
+      return (
+        <div>
+          <table className = "cashflows, table">
+          <thead>
+            <tr>
+              <th className ="row-1, row-info" >Comparable Company Numbers</th>
+              <th className ="row-2, row-comp1"></th>
+              <th className ="row-3, row-comp2"></th>
+              <th className= "row-4, row-comp3"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Company Name</td>
+              <td>{this.state.companyName1}</td>
+              <td>{this.state.companyName2}</td>
+              <td>{this.state.companyName3}</td>
+              </tr>
+            <tr>
+              <td>Company Ticker Symbol</td>
+              <td>{this.state.ticker1}</td>
+              <td>{this.state.ticker2}</td>
+              <td>{this.state.ticker3}</td>
+            </tr>
+            <tr>
+              <td>Market Capitalization</td>
+              <td>{this.state.marketCap1}</td>
+              <td>{this.state.marketCap2}</td>
+              <td>{this.state.marketCap3}</td>
+            </tr>
+            <tr>
+              <td>Enterprise Value</td>
+              <td>{this.state.enterpriseValue1}</td>
+              <td>{this.state.enterpriseValue2}</td>
+              <td>{this.state.enterpriseValue3}</td>
+            </tr>
+            <tr>
+              <td>Revenue</td>
+              <td>{this.state.revenue1}</td>
+              <td>{this.state.revenue2}</td>
+              <td>{this.state.revenue3}</td>
+            </tr>
+            <tr>
+              <td>EBITDA</td>
+              <td>{this.state.ebitda1}</td>
+              <td>{this.state.ebitda2}</td>
+              <td>{this.state.ebitda3}</td>
+            </tr>
+            <tr>
+              <td>Enterprise Value / Revenue</td>
+              <td>{this.state.evRevenue1}</td>
+              <td>{this.state.evRevenue2}</td>
+              <td>{this.state.evRevenue3}</td>
+            </tr>
+            <tr>
+              <td>Enterprise Value / EBITDA</td>
+              <td>{this.state.evEbitda1}</td>
+              <td>{this.state.evEbitda2}</td>
+              <td>{this.state.evEbitda3}</td>
+            </tr>
+            <tr className = "value">
+              <td>Your Value - multiple of Revenue</td>
+              <td>{this.state.companyValueRevenue1}</td>
+              <td>{this.state.companyValueRevenue2}</td>
+              <td>{this.state.companyValueRevenue3}</td>
+            </tr>
+            <tr className = "value">
+              <td>Your Value - multiple of EBITDA</td>
+              <td>{this.state.companyValueEbitda1}</td>
+              <td>{this.state.companyValueEbitda2}</td>
+              <td>{this.state.companyValueEbitda3}</td>
+            </tr>
+            <tr className = "value">
+              <td>Average Value - multiple of Revenue</td>
+              <td>{this.state.companyValueRevenue}</td>
+              <td></td>
+              <td></td>
+            </tr>
+            <tr className = "value">
+              <td>Average Value - multiple of EBITDA</td>
+              <td>{this.state.companyValueEbitda}</td>
+              <td></td>
+              <td></td>
+            </tr>
+            </tbody>
+          </table>
+          <br/>
+          <br/>
+        </div>
+      );
+    }
   }
 
-})
+});
 
 
 

@@ -1,8 +1,8 @@
 var express  = require('express');
 var csvjson = require('csvjson');
 var app = express();
-var scraperController = require("./scraper")
-var bodyParser = require('body-parser')
+var scraperController = require("./scraper");
+var bodyParser = require('body-parser');
 
 
 

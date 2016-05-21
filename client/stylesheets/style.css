@@ -4,7 +4,9 @@ body {
   background-color:#FFFAF6;
   font-family: 'Open Sans', sans-serif;
 }
-
+.form-control{
+  width: 300px;
+}
 .danger {
   color: red;
 }

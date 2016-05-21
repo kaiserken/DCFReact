@@ -47,8 +47,9 @@ var Searchticker = React.createClass({
     },
 
     componentDidMount: function() {
-      React.findDOMNode(this.refs.myTextInput).focus();
-      $ (React.findDOMNode(this.refs.myTextInput)).typeahead({
+      // this was causing page to load at this DOMNode
+      //React.findDOMNode(this.refs.myTextInput).focus();
+      $(React.findDOMNode(this.refs.myTextInput)).typeahead({
         hint: true,
         highlight: true,
         minLength: 1
@@ -61,10 +62,10 @@ var Searchticker = React.createClass({
 
     render: function() {
       return (
-        <div className = "col-md-6" >
+        <div>
           <div id="bloodhound">
-          <div>
-            <input className="typeahead" type="text" placeholder="Search for Public Company Ticker" ref="myTextInput"  onChange={this.handleChange} onBlur={this.handleChange} /></div>
+          <div className ="form-group">
+            <input className="typeahead form-control" type="text" placeholder="Search for Public Company Ticker" ref="myTextInput"  onChange={this.handleChange} onBlur={this.handleChange} /></div>
           </div>
         </div>
       );

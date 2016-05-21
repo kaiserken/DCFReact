@@ -45,6 +45,8 @@ var Publiccomps = React.createClass({
     };
   },
 
+
+
   changeCompanyInfo: function(event){
     event.target.value = this.props.stringNumber(event.target.value);
     var companyInfo = this.props.numberFormatting(event.target.value);
@@ -191,40 +193,49 @@ var Publiccomps = React.createClass({
 
       callback();
     });
-
+    $("html, body").animate({ scrollTop: $(document).height() }, "slow");
   },
 
   render: function(){
     return (
       <div>
         <form  className = "cashflows" onSubmit ={this.getComps}>
+          <div className = "col-md-6">
+          <h3>Public Comps</h3>
           <div>
           In the Boxes below - Input the ticker symbols of three comparable companies and your company's 12-month trailing Revenue and EBITDA. A 20% liquidity discount is applied because you are private company.
           </div>
-          <div className = "col-md-6">
             <br/>
             <br/>
-            <input  id = 'ticker1' type  = "text"  defaultValue = "" placeholder = "Ticker Symbol" onChange = {this.changeComps}/>
-            <input  id = 'ticker2' type  = "text"  defaultValue = "" placeholder = "Ticker Symbol" onChange = {this.changeComps}/>
-            <input  id = 'ticker3' type  = "text"  defaultValue = "" placeholder = "Ticker Symbol" onChange = {this.changeComps}/>
+            <label>Ticker 1:</label>
+            <input  className = "form-control" id = 'ticker1' type  = "text"  defaultValue = "" placeholder = "Ticker Symbol" onChange = {this.changeComps}/>
+            <br/>
+            <label>Ticker 2:</label>
+            <input  className = "form-control" id = 'ticker2' type  = "text"  defaultValue = "" placeholder = "Ticker Symbol" onChange = {this.changeComps}/>
+            <br/>
+            <label>Ticker 3:</label>
+            <input  className = "form-control" id = 'ticker3' type  = "text"  defaultValue = "" placeholder = "Ticker Symbol" onChange = {this.changeComps}/>
+            <br/>
+            <label>Revenue</label>
+            <input  className = "form-control" id = 'companyRevenue' type  = "text"  defaultValue = "" placeholder = "Your Revenue" onChange = {this.changeCompanyInfo}/>
+            <br/>
+            <label>EBITDA</label>
+            <input  className = "form-control" id = 'companyEbitda' type  = "text"  defaultValue = "" placeholder = "Your EBITDA" onChange = {this.changeCompanyInfo}/>
             <br/>
             <br/>
-            <input  id = 'companyRevenue' type  = "text"  defaultValue = "" placeholder = "Your Revenue" onChange = {this.changeCompanyInfo}/>
-            <input  id = 'companyEbitda' type  = "text"  defaultValue = "" placeholder = "Your EBITDA" onChange = {this.changeCompanyInfo}/>
+            <button className = "btn btn-primary">Retrieve Comps</button>
             <br/>
-            <br/>
-            <button>Retrieve Comps</button>
-            <p></p>
             <p className = "danger">{this.state.error}</p>
-          </div>
-          <div className = "col-md-6">
             <br/>
+            <label>Search for a Public Company Ticker</label>
             <br/>
             <Searchticker/>
           </div>
           <br/>
           <br/>
         </form>
+        <br/>
+        <br/>
         {this.renderResults()}
       </div>
 

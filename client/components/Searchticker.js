@@ -65,7 +65,7 @@ var Searchticker = React.createClass({
         <div>
           <div id="bloodhound">
           <div className ="form-group">
-            <input className="typeahead form-control" type="text" placeholder="Search for Public Company Ticker" ref="myTextInput"  onChange={this.handleChange} onBlur={this.handleChange} /></div>
+            <input className="typeahead form-control" type="text" placeholder="Enter Public Company Name" ref="myTextInput"  onChange={this.handleChange} onBlur={this.handleChange} /></div>
           </div>
         </div>
       );

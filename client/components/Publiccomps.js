@@ -52,9 +52,7 @@ var Publiccomps = React.createClass({
     var data = {};
     event.target.value = this.props.stringNumber(event.target.value);
     if (isNaN(event.target.value)){
-      console.log(true);
-      data[id] = '';
-      return this.setState(data);
+      return;
     }
     var companyInfo = this.props.numberFormatting(event.target.value);
     event.target.value = companyInfo;
@@ -207,9 +205,10 @@ var Publiccomps = React.createClass({
         <form  className = "cashflows" onSubmit ={this.getComps}>
           <div className = "col-md-6">
           <h3>Public Comps</h3>
-          <div>
-          In the Boxes below - Input the ticker symbols of three comparable companies and your company's 12-month trailing Revenue and EBITDA. A 20% liquidity discount is applied because you are private company.
-          </div>
+          <p className="description">
+          In the Boxes below - Input the stock ticker symbols of one to three comparable companies and your company's 12-month trailing Revenue and EBITDA. A 20% liquidity discount is applied because you are private company.
+        </p>
+
             <br/>
             <br/>
             <label>Ticker 1:</label>
@@ -221,10 +220,10 @@ var Publiccomps = React.createClass({
             <label>Ticker 3:</label>
             <input  className = "form-control" id = 'ticker3' type  = "text"  defaultValue = "" placeholder = "Ticker Symbol" onChange = {this.changeComps}/>
             <br/>
-            <label>Revenue</label>
+            <label>Revenue:</label>
             <input  className = "form-control" id = 'companyRevenue' value  = {this.state.companyRevenue}  type  = "text"  defaultValue = "" placeholder = "Your Revenue" onChange = {this.changeCompanyInfo}/>
             <br/>
-            <label>EBITDA</label>
+            <label>EBITDA:</label>
             <input  className = "form-control" id = 'companyEbitda' value  = {this.state.companyEbitda} type  = "text"  defaultValue = "" placeholder = "Your EBITDA" onChange = {this.changeCompanyInfo}/>
             <br/>
             <br/>

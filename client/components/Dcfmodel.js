@@ -29,9 +29,7 @@ var Dcfmodel  = React.createClass({
     var data = {};
     event.target.value = this.stringNumber(event.target.value);
     if (isNaN(event.target.value)){
-      console.log(true);
-      data[id] = '';
-      return this.setState(data);
+      return ;
     }
     var companyInfo = this.numberFormatting(event.target.value);
     event.target.value = companyInfo;
@@ -64,33 +62,35 @@ var Dcfmodel  = React.createClass({
             get a rough idea of what your business is worth.
           </p>
         </div>
-          <form  className ="cashflows form-group" onSubmit ={this.computeValue} >
+          <form  className ="cashflows" onSubmit ={this.computeValue} >
             <div className = "col-md-6">
-              <h3>Discounted Cashflow:</h3>
-              <div>In the Boxes below - Input your projected cashflow for each of the next 5 years. A good approximation of cash flow is EBITDA minus average annual capital expenditures. EBITDA is earnings before interest, taxes, depreciation and amortization.</div>
+              <h3>Discounted Cashflow</h3>
+              <p className="description">
+              In the Boxes below - Input your projected cashflow for each of the next 5 years.  A good approximation of cash flow is EBITDA minus average annual capital expenditures. EBITDA is earnings before interest, taxes, depreciation and amortization.
+            </p>
 
               <br/>
               <br/>
-              <label>CashFlow Year 1:</label>
-              <input  className = "form-control" id = 'cashFlowYear1' value  = {this.state.cashFlowYear1} type  = "text"  defaultValue = "" placeholder = "Year 1 cashflow" onChange = {this.changeCompanyInfo}/>
+              <label>Cash Flow Year 1:</label>
+              <input  className = "form-control" id = 'cashFlowYear1' value  = {this.state.cashFlowYear1} type  = "text"  defaultValue = "" placeholder = "Year 1 cash flow" onChange = {this.changeCompanyInfo}/>
               <br/>
-              <label>CashFlow Year 2:</label>
-              <input className = "form-control" id  ='cashFlowYear2' value  = {this.state.cashFlowYear2} type  = "text"  defaultValue = "" placeholder = "Year 2 cashflow" onChange = {this.changeCompanyInfo}/>
+              <label>Cash Flow Year 2:</label>
+              <input className = "form-control" id  ='cashFlowYear2' value  = {this.state.cashFlowYear2} type  = "text"  defaultValue = "" placeholder = "Year 2 cash flow" onChange = {this.changeCompanyInfo}/>
               <br/>
-              <label>CashFlow Year 3:</label>
-              <input className = "form-control" id  ='cashFlowYear3' value  = {this.state.cashFlowYear3} type  = "text"  defaultValue = "" placeholder = "Year 3 cashflow" onChange = {this.changeCompanyInfo}/>
+              <label>Cash Flow Year 3:</label>
+              <input className = "form-control" id  ='cashFlowYear3' value  = {this.state.cashFlowYear3} type  = "text"  defaultValue = "" placeholder = "Year 3 cash flow" onChange = {this.changeCompanyInfo}/>
               <br/>
-              <label>CashFlow Year 4:</label>
-              <input className = "form-control" id  ='cashFlowYear4' value  = {this.state.cashFlowYear4} type  = "text" defaultValue = "" placeholder = "Year 4 cashflow" onChange = {this.changeCompanyInfo}/>
+              <label>Cash Flow Year 4:</label>
+              <input className = "form-control" id  ='cashFlowYear4' value  = {this.state.cashFlowYear4} type  = "text" defaultValue = "" placeholder = "Year 4 cash flow" onChange = {this.changeCompanyInfo}/>
               <br/>
-              <label>CashFlow Year 5:</label>
-              <input className = "form-control" id = 'cashFlowYear5' value  = {this.state.cashFlowYear6} type  = "text"  defaultValue = "" placeholder = "Year 5 cashflow" onChange = {this.changeCompanyInfo}/>
+              <label>Cash Flow Year 5:</label>
+              <input className = "form-control" id = 'cashFlowYear5' value  = {this.state.cashFlowYear6} type  = "text"  defaultValue = "" placeholder = "Year 5 cash flow" onChange = {this.changeCompanyInfo}/>
               <br/>
-              <p>Enter a Discount Rate - For established companies the Discount Rate is often between 15% and 25%.</p>
+              <p className= "description">Enter a Discount Rate - For established companies the Discount Rate is often between 15% and 25%.</p>
               <label>Your Discount Rate: {this.state.discountRate}%</label>
               <input className = "form-control" id  = 'discountRate' value  = {this.state.discountRate} type  = "text"  defaultValue = "" placeholder = "Discount Rate" onChange = {this.changeCompanyInfo}/>
               <br/>
-              <p>Enter a Long Term Growth Rate - A safe rate to use would be between 1% and 3%</p>
+              <p className= "description">Enter a Long Term Growth Rate - A safe rate to use would be between 1% and 3%</p>
               <label>Your Growth Rate: {this.state.longTermGrowthRate}%</label>
               <input className = "form-control" id = "longTermGrowthRate" value  = {this.state.longTermGrowthRate} type  = "text"  defaultValue = "" placeholder = "Growth Rate" onChange = {this.changeCompanyInfo}/>
               <br/>

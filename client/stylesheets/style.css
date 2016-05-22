@@ -4,15 +4,21 @@ body {
   background-color:#FFFAF6;
   font-family: 'Open Sans', sans-serif;
   padding-bottom: 50px;
+  margin-top:25px;
 }
-
+.jumbotron {
+  background-color: #C3D8EE;
+}
 .form-control{
   width: 300px;
 }
 .danger {
   color: red;
 }
-
+.description {
+  text-align: justify;
+  width: 80%;
+}
 .value {
   color: blue;
   font-weight: bold;

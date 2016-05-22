@@ -4,10 +4,11 @@ body {
   background-color:#FFFAF6;
   font-family: 'Open Sans', sans-serif;
   padding-bottom: 50px;
-  margin-top:25px;
+  padding-top:25px;
 }
 .jumbotron {
   background-color: #C3D8EE;
+
 }
 .form-control{
   width: 300px;
@@ -20,7 +21,7 @@ body {
   width: 80%;
 }
 .value {
-  color: blue;
+  color: #457A9A;
   font-weight: bold;
 }
 

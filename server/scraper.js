@@ -1,7 +1,7 @@
 var cheerio = require('cheerio');
 var request = require('request');
 
-var url  = "http://finance.yahoo.com/q/ks?s=";
+var url  = "https://finance.yahoo.com/q/ks?s=";
 
 var scrapeController = {
   getData: function(req, res, next) {

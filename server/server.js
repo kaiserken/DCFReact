@@ -22,7 +22,7 @@ app.get("/yahoostockquery/:symbol", scraperController.getData);
 //   csvjson.toColumnArray('./client/companylistmaster.csv').save('./client/companylistmaster2.json');
 // });
 
-var  port  = process.env.PORT || 3000;
+var  port  = process.env.PORT;
 var  server  = http.createServer(app);
 server.listen(port);
 console.log('server listening on ', port);

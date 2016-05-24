@@ -178,7 +178,7 @@ var Publiccomps = React.createClass({
 
       $.ajax({
         type: "GET",
-        url: "http://tranquil-sea-96599.herokuapp.com/yahoostockquery/"+[value],
+        url: "https://tranquil-sea-96599.herokuapp.com/yahoostockquery/"+[value],
         contentType: 'application/json',
         success: function(results){
           that.setState({

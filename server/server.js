@@ -1,6 +1,7 @@
 var express  = require('express');
 var csvjson = require('csvjson');
 var app = express();
+var http = require('http');
 var scraperController = require("./scraper");
 var bodyParser = require('body-parser');
 var cors  = require('cors');
@@ -21,8 +22,9 @@ app.get("/yahoostockquery/:symbol", scraperController.getData);
 //   csvjson.toColumnArray('./client/companylistmaster.csv').save('./client/companylistmaster2.json');
 // });
 
-app.listen(process.env.PORT || 3000, function(){
-  console.log('server is running');
-});
+var  port  = process.env.PORT || 3000;
+var  server  = http.createServer(app);
+server.listen(port);
+console.log('server listening on ', port);
 
 module.exports = app;

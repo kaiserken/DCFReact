@@ -4,11 +4,11 @@ var app = express();
 var http = require('http');
 var scraperController = require("./scraper");
 var bodyParser = require('body-parser');
-var cors  = require('cors');
+//var cors  = require('cors');
 
 
 app.use(express.static('client'));
-app.use(cors());
+//app.use(cors());
 app.use(bodyParser());
 
 

@@ -1,6 +1,6 @@
 require('babel/register');
 var React  = require('react');
-var Page  = require("./components/Page")
+var Page  = require("./components/Page");
 
 
 

@@ -1,12 +1,12 @@
 var cheerio = require('cheerio');
 var request = require('request');
 //http://finance.yahoo.com/q/ks?s=INTC+Key+Statistics
-var url  = "http://finance.yahoo.com/q/ks?s=";
+var url  = "https://finance.yahoo.com/q/ks?s=";
 var end = "+Key+Statistics";
 
 var scrapeController = {
   getData: function(req, res, next) {
-    var newUrl  = url+req.params.symbol//.toUpperCase()+end;
+    var newUrl  = url+req.params.symbol.toUpperCase()+end;
     console.log(newUrl);
     res.header("Access-Control-Allow-Origin","*");
     request(newUrl, function(error, response, html) {

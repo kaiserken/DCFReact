@@ -95,7 +95,7 @@ var Publiccomps = React.createClass({
 
     for (var x = 0; x<this.state.comparablesArray.length; x++){
       if (this.state.comparablesArray[x]<=0){
-        this.setState({error: "One or more of the companies entered has a negative value for EBITDA. Negative values make the comparison meaningless. Look at table below and replace that company's ticker with a new one or remove it and resubmit."});
+        this.setState({error: "One or more of the companies entered has a negative value for EBITDA. Negative values make the comparison meaningless. Replace that company's ticker with a new one or remove it and resubmit."});
       }
       if (this.state.comparablesArray[x] && x%2 ===0){
         revSum += this.state.comparablesArray[x];

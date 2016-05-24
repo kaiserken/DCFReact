@@ -3,10 +3,11 @@ var csvjson = require('csvjson');
 var app = express();
 var scraperController = require("./scraper");
 var bodyParser = require('body-parser');
-
+var cors  = require('cors');
 
 
 app.use(express.static('client'));
+app.use(cors());
 app.use(bodyParser());
 
 

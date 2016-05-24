@@ -26,6 +26,7 @@
     "gulp-util": "^3.0.6",
     "jquery": "^2.1.4",
     "lodash.assign": "^3.2.0",
+    "numeral": "^1.5.3",
     "react": "^0.14.0",
     "reactify": "^1.1.1",
     "request": "^2.65.0",

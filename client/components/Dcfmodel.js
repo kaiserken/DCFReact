@@ -1,5 +1,6 @@
 var React = require('react');
 var Publiccomps = require('./Publiccomps');
+var numeral = require('numeral');
 
 var Dcfmodel  = React.createClass({
 
@@ -17,7 +18,8 @@ var Dcfmodel  = React.createClass({
   },
 
   numberFormatting: function(event){
-      return (new Intl.NumberFormat({ style: 'currency',currency: 'USD' }).format(event));
+      //return (new Intl.NumberFormat({ style: 'currency',currency: 'USD' }).format(event));
+      return numeral(event).format('0,0');
   },
 
   stringNumber: function(event){

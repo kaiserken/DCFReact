@@ -21,8 +21,8 @@ var scrapeController = {
         var financedata = $(this);
         json.numbers = financedata.text();
         financialdata.push(json);
-      }).then(res.json(financialdata));
-
+      });
+      res.json(financialdata);
 
     });
   }

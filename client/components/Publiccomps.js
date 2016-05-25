@@ -178,7 +178,7 @@ var Publiccomps = React.createClass({
 
       $.ajax({
         type: "GET",
-        url: "http://localhost:3000/yahoostockquery/"+[value],
+        url: "https://tranquil-sea-96599.herokuapp.com/yahoostockquery/"+[value],
         contentType: 'application/json',
         success: function(results){
           that.setState({
@@ -196,7 +196,6 @@ var Publiccomps = React.createClass({
 
       callback();
     });
-
     $("html, body").animate({ scrollTop: $(document).height() }, "slow");
   },
 

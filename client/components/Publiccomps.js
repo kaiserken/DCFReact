@@ -196,7 +196,7 @@ var Publiccomps = React.createClass({
 
       callback();
     });
-    $("html, body").animate({ scrollTop: $(document).height() }, "slow");
+    setTimeout($("html, body").animate({ scrollTop: $(document).height() }, "slow"), 500);
   },
 
   render: function(){
